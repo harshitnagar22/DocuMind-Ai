@@ -15,6 +15,9 @@ export default function ChatPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const { isLoaded, userId, getToken } = useAuth();
   
+  // Mobile UI State
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
   // HITL State
   const [inspectionMode, setInspectionMode] = useState(false);
   const [retrievedContext, setRetrievedContext] = useState<any[]>([]);
@@ -216,8 +219,24 @@ export default function ChatPage() {
 
   return (
     <div className={styles.appLayout}>
-      <div className={styles.sidebar}>
-        <div className={styles.sidebarTitle}>My Documents</div>
+      {/* Mobile Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className={styles.sidebarOverlay} 
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ""}`}>
+        <div className={styles.sidebarTitle}>
+          My Documents
+          <button 
+            className={styles.closeSidebarBtn} 
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            ✕
+          </button>
+        </div>
         {documents.length === 0 && <div className={styles.emptySidebar}>No documents yet.</div>}
         {documents.map((doc) => (
           <div 
@@ -238,7 +257,15 @@ export default function ChatPage() {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className={styles.header}>
-          <div className={styles.title}>DocuMind AI</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <button 
+              className={styles.hamburgerBtn} 
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              ☰
+            </button>
+            <div className={styles.title}>DocuMind AI</div>
+          </div>
           <UserButton />
         </div>
 

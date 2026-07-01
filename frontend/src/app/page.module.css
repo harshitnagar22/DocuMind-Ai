@@ -79,6 +79,9 @@
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .emptySidebar {
@@ -381,3 +384,100 @@
   font-family: monospace;
   font-size: 0.9em;
 }
+
+/* Mobile Responsiveness */
+.hamburgerBtn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #3b82f6;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.closeSidebarBtn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.sidebarOverlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .appLayout {
+    position: relative;
+  }
+  
+  .hamburgerBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .closeSidebarBtn {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.1);
+  }
+  
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+  
+  .sidebarOverlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 40;
+  }
+
+  .container {
+    padding: 1rem;
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  .chatSection {
+    padding: 16px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .inputArea {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .fileUpload {
+    text-align: center;
+  }
+  
+  .inspectionPanel {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
